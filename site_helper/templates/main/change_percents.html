@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="content__inner">
+        <div class="form_table">
+            {% include 'main/change_percents__form.html' %}
+            <div class="upper_wrapper">
+                <div class="wrapper-search-tables">
+                    <div class="content--header_text">
+                        <h5>Всего найдено: {{ data|length }}</h5>
+                    </div>
+                    {% include 'main/change_percents__table.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

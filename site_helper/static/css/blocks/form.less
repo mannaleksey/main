@@ -1,0 +1,46 @@
+// main: ../style.less
+
+form {
+  max-height: 640px;
+  background-color: #ffffffc9;
+  border-radius: 0 0 15px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+}
+
+.form__container {
+  display: flex;
+  flex-direction: column;
+  //align-items: center;
+  h2 {
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 300;
+  }
+  .block__element {
+    margin-top: 1rem;
+  }
+}
+
+
+@import "content";
+@import "dropdown";
+@import "input_id";
+@import "button_submit";
+
+
+.boarder_around {
+    border: 2px solid rgba(14, 93, 88, 0.1);
+    border-radius: 3px;
+}
+
+.form_table {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+}

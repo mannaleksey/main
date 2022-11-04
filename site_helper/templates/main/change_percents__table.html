@@ -1,0 +1,27 @@
+<table class="custom_table">
+    <thead>
+        <tr>
+            <th>Source</th>
+            <th>Dest</th>
+            <th>Min_price</th>
+            <th>Max_price</th>
+            <th>Percent</th>
+            <th>Delete</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in data %}
+            <tr>
+                <td>{{ i.source_bank }}</td>
+                <td>{{ i.dest_bank }}</td>
+                <td>{{ i.min_price }}</td>
+                <td>{{ i.max_price }}</td>
+                <td>{{ i.percent }}</td>
+                <td><a href="?delete=&source_bank={{ i.source_bank }}&dest_bank={{ i.dest_bank }}&min_price={{ i.min_price }}&max_price={{ i.max_price }}&percent={{ i.percent }}">delete</a></td>
+                <td><a href="?source_bank={{ i.source_bank }}&dest_bank={{ i.dest_bank }}&min_price={{ i.min_price }}&max_price={{ i.max_price }}&percent={{ i.percent }}">edit</a></td>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

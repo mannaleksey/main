@@ -1,0 +1,91 @@
+<form action="{% url 'change_form' %}" method="GET">
+    <div class="content--header_text">
+        <h4>ИЗМЕНЕНИЕ ПРОЦЕНТА</h4>
+    </div>
+    <div class="form__container">
+        <div class="block_elements">
+            <div class="block__element">
+                <h2>Source</h2>
+                <div class="select-box">
+                    <div class="options-container">
+                        {% for source in data_to_search %}
+                            <div class="option">
+                                <input type="radio" class="radio" id="source {{ source }}" name="source_bank" value="{{ source }}"
+                                {% if data_for_default.source_bank == source %}
+                                    checked
+                                {% endif %}
+                                />
+                                <label for="source {{ source }}">{{ source }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="selected boarder_around source">
+                        {% if data_for_default.source_bank %}
+                            {{ data_for_default.source_bank }}
+                        {% else %}
+                            Выберите от куда
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="block__element">
+                <h2>Destination</h2>
+                <div class="select-box">
+                    <div class="options-container">
+                        {% for dest in data_to_search %}
+                          <div class="option">
+                            <input type="radio" class="radio" id="dest {{ dest }}" name="dest_bank" value="{{ dest }}"
+                            {% if data_for_default.dest_bank == dest %}
+                                checked
+                            {% endif %}
+                            />
+                            <label for="dest {{ dest }}">{{ dest }}</label>
+                          </div>
+                        {% endfor %}
+                    </div>
+                    <div class="selected boarder_around dest">
+                        {% if data_for_default.dest_bank %}
+                            {{ data_for_default.dest_bank }}
+                        {% else %}
+                            Выберите куда
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="block__element">
+                <h2 class="form__label">Сумма от</h2>
+
+                <input type="text" class="form_input_id boarder_around" autocomplete="off" name="min_price" placeholder="5000.5" value
+                {% if data_for_default.min_price %}
+                    ="{{ data_for_default.min_price }}"
+                {% endif %}
+                >
+            </div>
+
+            <div class="block__element">
+                <h2 class="form__label">Сумма до</h2>
+                <input type="text" class="form_input_id boarder_around" autocomplete="off" name="max_price" placeholder="10000" value
+                {% if data_for_default.max_price %}
+                    ="{{ data_for_default.max_price }}"
+                {% endif %}
+                >
+            </div>
+
+            <div class="block__element">
+                <h2 class="form__label">Процент</h2>
+                <input type="text" class="form_input_id boarder_around" autocomplete="off" name="percent" placeholder="5" value
+                {% if data_for_default.percent %}
+                    ="{{ data_for_default.percent }}"
+                {% endif %}
+                >
+            </div>
+        </div>
+    </div>
+    <div class="btn_div">
+        <input type="submit" value="Установить" class="btn" />
+        <div class="show_all">
+            <a href="{% url 'change_form' %}">Сбросить</a>
+        </div>
+    </div>
+</form>

@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'binance_get_price'
+    'binance_get_price',
+    'site_helper',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,6 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULE = {
     'db_task': {
         'task': 'binance_get_price.tasks.refresh_db',
-        'schedule': 10.0,
+        'schedule': 200.0,
     }
 }

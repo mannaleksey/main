@@ -1,0 +1,54 @@
+// main: ../style.less
+
+.content_details {
+  padding: 15px 40px;
+  background-color: #ffffffc9;
+  border-radius: 0 0 15px 15px;
+}
+
+.list_of_case {
+  border: 1px solid #d4dce1;
+}
+
+.go_back {
+  position: relative;
+  &:after {
+    border-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    content: "";
+    background: url(../img/arrow-down_white.svg);
+    transform: rotate(90deg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 50%;
+    width: 16px;
+    transition: all 0.4s;
+  }
+}
+
+.row_card {
+  margin: 0;
+  display: flex;
+  &:not(:first-child) {
+    border-top: 1px solid #d4dce1;
+  }
+  .left {
+    background-color: #e5ebf0;
+    font-size: .928em;
+    font-weight: 600;
+    color: #374140;
+    padding: 11px 15px;
+    float: left;
+    width: 260px;
+  }
+  .right {
+    font-size: .928em;
+    color: #454545;
+    padding: 11px 15px;
+    float: left;
+    width: 568px;
+    overflow: hidden;
+  }
+}
