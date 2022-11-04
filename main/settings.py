@@ -134,6 +134,6 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULE = {
     'db_task': {
         'task': 'binance_get_price.tasks.refresh_db',
-        'schedule': 200.0,
+        'schedule': 500.0,
     }
 }
