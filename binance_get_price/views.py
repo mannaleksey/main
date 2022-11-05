@@ -32,12 +32,12 @@ def get_cost(request):
     keys_list = list(request.GET.keys())
     try:
         if ('source' in keys_list) and ('dest' in keys_list) and ('price' in keys_list):
-            if request.GET['source'] not in ['BTC', 'ETH'] and request.GET['dest'] not in ['BTC', 'ETH']:
+            if request.GET['source'] not in ['BTC', 'ETH', 'USDT'] and request.GET['dest'] not in ['BTC', 'ETH', 'USDT']:
                 source_course = get_course('USDT', 'BUY', request.GET['source'])
                 dest_course = get_course('USDT', 'SELL', request.GET['dest'])
                 if source_course and dest_course:
                     data['result'] = str(Decimal(request.GET['price']) / source_course * dest_course)
-            elif request.GET['source'] in ['BTC', 'ETH'] and request.GET['dest'] not in ['BTC', 'ETH']:
+            elif request.GET['source'] in ['BTC', 'ETH', 'USDT'] and request.GET['dest'] not in ['BTC', 'ETH', 'USDT']:
                 dest_course = get_course(request.GET['source'], 'SELL', request.GET['dest'])
                 if dest_course:
                     data['result'] = str(Decimal(request.GET['price']) * dest_course)
