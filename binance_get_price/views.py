@@ -13,8 +13,8 @@ names_bank = {
     'TBC Bank (GEL)': 'TBCbank',
     'Liberty Bank (GEL)': 'LIBERTYBANK',
     'UZCARD (UZS)': 'Uzcard',
-    'PERMATA': 'PermataMe',
-    'BCA': 'BCAMobile',
+    'Permata Bank (IDR)': 'PermataMe',
+    'BCA (IDR)': 'BCAMobile',
     'Наличные на Бали': 'PermataMe',
     # 'abc2': 'PermataMe'
 }
