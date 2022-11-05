@@ -6,12 +6,12 @@ from django.db.models import Q
 from binance_get_price.models import PercentsCase, DataCase
 
 names_bank = {
-    'BCAMobile': 'BCA',
+    'BCAMobile': 'BCA (IDR)',
     'BankofGeorgia': 'Bank of Georgia (GEL)',
     'ForteBank': 'Forte Bank (KZT)',
     'KaspiBank': 'Kaspi Bank (KZT)',
     'LIBERTYBANK': 'Liberty Bank (GEL)',
-    'PermataMe': ['Наличные на Бали', 'PERMATA'],
+    'PermataMe': ['Наличные на Бали', 'Permata Bank (IDR)'],
     'QIWI': 'QIWI (RUB)',
     'RosBankNew': 'Сбер (RUB)',
     'TBCbank': 'TBC Bank (GEL)',
