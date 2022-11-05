@@ -43,3 +43,15 @@ class SpotCase(models.Model):
     class Meta:
         verbose_name = "Курс монеты"
         verbose_name_plural = "Курсы монет"
+
+
+class NameCase(models.Model):
+    front_name = models.CharField('Тг название', max_length=64, default='')
+    back_name = models.CharField('название для программы', max_length=64, default='')
+
+    def __str__(self):
+        return f'{self.front_name} - {self.back_name}'
+
+    class Meta:
+        verbose_name = "Название"
+        verbose_name_plural = "Названия"

@@ -3,7 +3,7 @@ from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from binance_get_price.models import PercentsCase, DataCase
+from binance_get_price.models import PercentsCase, DataCase, NameCase
 
 names_bank = {
     'BCAMobile': 'BCA (IDR)',
@@ -65,31 +65,20 @@ def index(request):
     elif ('source_bank' in list_keys) and ('dest_bank' in list_keys) and (('min_price' in list_keys) or ('max_price' in list_keys)) and ('percent' in list_keys):
         update_or_create_row(request)
     data_to_search = []
-    data = PercentsCase.objects.all()
     for i in DataCase.objects.all():
         for elem in [i.payment, i.asset]:
-            key_list = False
             try:
-                temp = names_bank[elem]
-                try:
-                    if type(temp) is list:
-                        key_list = True
-                except:
-                    pass
+                data_case = NameCase.objects.all().filter(back_name=elem)
             except:
-                temp = elem
-            if key_list:
-                for j in temp:
-                    if j not in data_to_search:
-                        data_to_search.append(j)
-            else:
-                if temp not in data_to_search:
-                    data_to_search.append(temp)
+                data_case = []
+            for back_name in data_case:
+                if back_name.front_name not in data_to_search:
+                    data_to_search.append(back_name.front_name)
     data_to_search.sort(key=lambda x: x[0])
     return render(request, 'main/change_percents.html', {
         'title': 'Главная страница',
         'data_to_search': data_to_search,
-        'data': data,
+        'data': PercentsCase.objects.all(),
         'data_for_default': data_for_default
     })
 

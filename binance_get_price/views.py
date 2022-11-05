@@ -1,29 +1,15 @@
 from decimal import Decimal
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import DataCase, PercentsCase
-
-names_bank = {
-    'Сбер (RUB)': 'RosBankNew',
-    'Тинькофф (RUB)': 'TinkoffNew',
-    'QIWI (RUB)': 'QIWI',
-    'Kaspi Bank (KZT)': 'KaspiBank',
-    'Forte Bank (KZT)': 'ForteBank',
-    'Bank of Georgia (GEL)': 'BankofGeorgia',
-    'TBC Bank (GEL)': 'TBCbank',
-    'Liberty Bank (GEL)': 'LIBERTYBANK',
-    'UZCARD (UZS)': 'Uzcard',
-    'Permata Bank (IDR)': 'PermataMe',
-    'BCA (IDR)': 'BCAMobile',
-    'Наличные на Бали': 'PermataMe',
-    # 'abc2': 'PermataMe'
-}
+from .models import DataCase, PercentsCase, NameCase
 
 
 def get_course(asset, trade_type, payment):
-    payment = names_bank[payment]
-    data_case = DataCase.objects.all()
-    return Decimal(data_case.filter(asset=asset, trade_type=trade_type, payment=payment)[0].price)
+    try:
+        payment = NameCase.objects.all().filter(front_name=payment)[0].back_name
+        return Decimal(DataCase.objects.all().filter(asset=asset, trade_type=trade_type, payment=payment)[0].price)
+    except:
+        pass
 
 
 @api_view(['GET'])
@@ -41,6 +27,10 @@ def get_cost(request):
                 dest_course = get_course(request.GET['source'], 'SELL', request.GET['dest'])
                 if dest_course:
                     data['result'] = str(Decimal(request.GET['price']) * dest_course)
+            elif request.GET['source'] not in ['BTC', 'ETH', 'USDT'] and request.GET['dest'] in ['BTC', 'ETH', 'USDT']:
+                dest_course = get_course(request.GET['dest'], 'BUY', request.GET['source'])
+                if dest_course:
+                    data['result'] = str(Decimal(request.GET['price']) / dest_course)
             try:
                 if data['result'] != '0':
                     list_elem = PercentsCase.objects.all().filter(source_bank=request.GET['source'], dest_bank=request.GET['dest'])
