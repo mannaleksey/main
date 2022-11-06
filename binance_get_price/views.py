@@ -16,6 +16,14 @@ def get_course(asset, trade_type, payment):
 def get_cost(request):
     data = {'result': '0'}
     keys_list = list(request.GET.keys())
+    for i in ['source', 'dest']:
+        try:
+            with open('dsafd.txt', 'a', encoding='utf-8') as file:
+                file.write(f'{i} - {request.GET[i]}\n')
+        except:
+            pass
+        with open('dsafd.txt', 'a', encoding='utf-8') as file:
+            file.write(f'\n')
     try:
         if ('source' in keys_list) and ('dest' in keys_list) and ('price' in keys_list):
             if request.GET['source'] not in ['BTC', 'ETH', 'USDT'] and request.GET['dest'] not in ['BTC', 'ETH', 'USDT']:
