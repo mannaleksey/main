@@ -32,8 +32,6 @@ def get_cost(request):
                     cripto_front_name_list.append(NameCase.objects.all().filter(back_name=cripto)[0].front_name)
                 except:
                     cripto_front_name_list.append(cripto)
-            print(cripto_front_name_list)
-            
             if request.GET['source'] not in cripto_front_name_list and request.GET['dest'] not in cripto_front_name_list:
                 source_course = get_course('USDT', 'BUY', request.GET['source'])
                 dest_course = get_course('USDT', 'SELL', request.GET['dest'])
