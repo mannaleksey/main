@@ -4,6 +4,14 @@ from rest_framework.response import Response
 from .models import DataCase, PercentsCase, NameCase
 
 
+def get_back_name_cripto(front_name_cripto):
+    try:
+        back_name_cripto = NameCase.objects.all().filter(front_name=front_name_cripto)[0].back_name
+        return back_name_cripto
+    except:
+        return front_name_cripto
+
+
 def get_course(asset, trade_type, payment):
     try:
         payment = NameCase.objects.all().filter(front_name=payment)[0].back_name
@@ -16,27 +24,27 @@ def get_course(asset, trade_type, payment):
 def get_cost(request):
     data = {'result': '0'}
     keys_list = list(request.GET.keys())
-    for i in ['source', 'dest']:
-        try:
-            with open('dsafd.txt', 'a', encoding='utf-8') as file:
-                file.write(f'{i} - {request.GET[i]}\n')
-        except:
-            pass
-        with open('dsafd.txt', 'a', encoding='utf-8') as file:
-            file.write(f'\n')
     try:
         if ('source' in keys_list) and ('dest' in keys_list) and ('price' in keys_list):
-            if request.GET['source'] not in ['BTC', 'ETH', 'USDT'] and request.GET['dest'] not in ['BTC', 'ETH', 'USDT']:
+            cripto_front_name_list = []
+            for cripto in ['BTC', 'ETH', 'USDT']:
+                try:
+                    cripto_front_name_list.append(NameCase.objects.all().filter(back_name=cripto)[0].front_name)
+                except:
+                    cripto_front_name_list.append(cripto)
+            print(cripto_front_name_list)
+            
+            if request.GET['source'] not in cripto_front_name_list and request.GET['dest'] not in cripto_front_name_list:
                 source_course = get_course('USDT', 'BUY', request.GET['source'])
                 dest_course = get_course('USDT', 'SELL', request.GET['dest'])
                 if source_course and dest_course:
                     data['result'] = str(Decimal(request.GET['price']) / source_course * dest_course)
-            elif request.GET['source'] in ['BTC', 'ETH', 'USDT'] and request.GET['dest'] not in ['BTC', 'ETH', 'USDT']:
-                dest_course = get_course(request.GET['source'], 'SELL', request.GET['dest'])
+            elif request.GET['source'] in cripto_front_name_list and request.GET['dest'] not in cripto_front_name_list:
+                dest_course = get_course(get_back_name_cripto(request.GET['source']), 'SELL', request.GET['dest'])
                 if dest_course:
                     data['result'] = str(Decimal(request.GET['price']) * dest_course)
-            elif request.GET['source'] not in ['BTC', 'ETH', 'USDT'] and request.GET['dest'] in ['BTC', 'ETH', 'USDT']:
-                dest_course = get_course(request.GET['dest'], 'BUY', request.GET['source'])
+            elif request.GET['source'] not in cripto_front_name_list and request.GET['dest'] in cripto_front_name_list:
+                dest_course = get_course(get_back_name_cripto(request.GET['dest']), 'BUY', request.GET['source'])
                 if dest_course:
                     data['result'] = str(Decimal(request.GET['price']) / dest_course)
             try:
